@@ -1,5 +1,5 @@
 {
-  "name": "cweagans/composer-patches",
+  "name": "mxr576/composer-patches",
   "description": "Provides a way to patch Composer packages.",
   "minimum-stability": "dev",
   "license": "BSD-3-Clause",
@@ -15,10 +15,10 @@
   ],
   "require": {
     "php": ">=5.3.0",
-    "composer-plugin-api": "^1.0"
+    "composer-plugin-api": "^1.0 || ^2.0"
   },
   "require-dev": {
-    "composer/composer": "~1.0",
+    "composer/composer": "~1.0 || ~2.0",
     "phpunit/phpunit": "~4.6"
   },
   "autoload": {
@@ -26,5 +26,8 @@
   },
   "autoload-dev": {
     "psr-4": {"cweagans\\Composer\\Tests\\": "tests"}
+  },
+  "replace": {
+    "cweagans/composer-patches": "1.*"
   }
 }

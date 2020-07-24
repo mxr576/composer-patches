@@ -175,8 +175,9 @@ class Patches implements PluginInterface, EventSubscriberInterface {
     // Now add all the patches from dependencies that will be installed.
     $operations = $event->getOperations();
     $this->io->write('<info>Gathering patches for dependencies. This might take a minute.</info>');
+    $job_operation = version_compare(PluginInterface::PLUGIN_API_VERSION, '1', '>') ? 'getOperationType' : 'getJobType';
     foreach ($operations as $operation) {
-      if ($operation->getJobType() == 'install' || $operation->getJobType() == 'update') {
+      if ($operation->{$job_operation}() == 'install' || $operation->{$job_operation}() == 'update') {
         $package = $this->getPackageFromOperation($operation);
         $extra = $package->getExtra();
         if (isset($extra['patches'])) {
@@ -554,5 +555,19 @@ class Patches implements PluginInterface, EventSubscriberInterface {
     }
     return $patched;
   }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deactivate(Composer $composer, IOInterface $io)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function uninstall(Composer $composer, IOInterface $io)
+    {
+    }
 
 }
